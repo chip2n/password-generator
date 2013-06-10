@@ -28,7 +28,6 @@ def main():
     f = open(args.wordlist, 'r')
     wordlist = f.readlines()
     words = []
-    print(len(wordlist))
 
     for i in range(0, args.word_count):
         while True:
