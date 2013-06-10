@@ -21,7 +21,9 @@ def main():
     parser.add_argument('-l', '--max_length', default=1000, 
             help='the max word length', type=int)
 
-    parser.add_argument('word_count', type=int)
+    parser.add_argument('word_count',
+            help='the amount of words to be included in the password', type=int)
+
     args = parser.parse_args()
 
     # Open wordlist and generate a list of all the words
@@ -29,6 +31,7 @@ def main():
     wordlist = f.readlines()
     words = []
 
+    # Random word_count words that are at least max_length long
     for i in range(0, args.word_count):
         while True:
             word = wordlist[random.randrange(0, len(wordlist))].strip()
@@ -36,18 +39,22 @@ def main():
                 words.append(word)
                 break
 
-
+    # Separate all the words with a space character
     password = list(" ".join(words))
 
+    # Make 1-4 characters upper case
     for i in range(1, random.randrange(1, 5)):
         location = random.randrange(0, len(password))
         password[location] = password[location].upper()
 
+    # Make 50% of the relevant characters into numbers    
     for i in range(0, len(password)):
         if password[i] in number_dictionary:
             if random.randrange(0,2) == 1:
                 password[i] = str(number_dictionary[password[i]])
 
+    # Print the generated password
     print(''.join(password))
+
 if __name__ == "__main__":
     main()
